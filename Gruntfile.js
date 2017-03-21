@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 			files: ['Gruntfile.js', 'calc.js'],
 			options: {
 				evil: true,
+				reporterOutput: '',
 				// options here to override JSHint defaults
 				globals: {
 					console: true,

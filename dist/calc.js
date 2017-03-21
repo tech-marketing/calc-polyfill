@@ -2,6 +2,18 @@
 fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the MIT license.
 */
 
+/*!
+ * contentloaded.js
+ *
+ * Authors: Diego Perini (diego.perini at gmail.com)
+ *          Julien Schmidt (floss at julienschmidt.com)
+ * Summary: cross-browser wrapper for DOMContentLoaded
+ * Updated: 2016-02-14
+ * License: MIT
+ * Version: 1.4
+ */
+
+
 (function (win, doc) {
 
 	'use strict';
@@ -191,7 +203,6 @@ fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the 
 	};
 
 	var calcTest = function() {
-
 		var el = document.createElement('div');
 
 		el.style.cssText = 'width: -moz-calc(10px); width: -webkit-calc(10px); width: calc(10px)';
@@ -386,6 +397,31 @@ fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the 
 		return arr;
 	},
 
+	getPercentRefValue = function(element, property) {
+		function isStaticlyPositioned(element) {
+			var result =  element != document.body &&
+						getComputedStyle(element).position == 'static';
+			return result;
+		}
+		switch (property.toLowerCase()) {
+			case 'top':
+			case 'bottom':
+				for(element=element.parentNode; isStaticlyPositioned(element); element=element.parentNode);
+				return element.clientHeight;
+			case 'left':
+				while ((element = element.parentNode) && (element.style.position == 'static' && element != document.body));
+				console.log(element);
+				return element.clientWidth;
+			case 'right':
+				break;
+			case 'height':
+				return element.parentNode.clientHeight;
+			default:
+				return element.parentNode.clientWidth;
+		}
+
+	},
+
 	dotheCalc = function( calcRules ){
 		var index = 0;
 		var len = calcRules.length;
@@ -409,7 +445,7 @@ fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the 
 
 					if ( matches[j].match(PERCENT) ) {
 
-						refValue = obj.elements[i].parentNode.clientWidth;
+						refValue = getPercentRefValue(obj.elements[i], obj.prop);
 
 						modifier = parseFloat(matches[j], 10) / 100;
 					}
@@ -591,7 +627,7 @@ function contentLoaded(win, fn) {
 }
 
 /**
- * requestAnimationFrame version: "0.0.17" Copyright (c) 2011-2012, Cyril Agosta ( cyril.agosta.dev@gmail.com) All Rights Reserved.
+ * requestAnimationFrame version: "0.0.23" Copyright (c) 2011-2012, Cyril Agosta ( cyril.agosta.dev@gmail.com) All Rights Reserved.
  * Available via the MIT license.
  * see: http://github.com/cagosta/requestAnimationFrame for details
  *
@@ -619,6 +655,7 @@ function contentLoaded(win, fn) {
 
             global.requestAnimationFrame = global[ 'webkitRequestAnimationFrame' ];
             global.cancelAnimationFrame = global[ 'webkitCancelAnimationFrame' ] || global[ 'webkitCancelRequestAnimationFrame' ];
+            return;
 
         }
 
