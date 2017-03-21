@@ -1,0 +1,9 @@
+[submodule "libs/contentloaded"]
+	path = libs/contentloaded
+	url = https://github.com/dperini/ContentLoaded
+[submodule "libs/requestAnimationFrame"]
+	path = libs/requestAnimationFrame
+	url = https://github.com/cagosta/requestAnimationFrame
+[submodule "libs/jquery"]
+	path = libs/jquery
+	url = https://github.com/jquery/jquery

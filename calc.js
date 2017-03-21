@@ -2,18 +2,6 @@
 fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the MIT license.
 */
 
-/*!
- * contentloaded.js
- *
- * Authors: Diego Perini (diego.perini at gmail.com)
- *          Julien Schmidt (floss at julienschmidt.com)
- * Summary: cross-browser wrapper for DOMContentLoaded
- * Updated: 2016-02-14
- * License: MIT
- * Version: 1.4
- */
-
-
 (function (win, doc) {
 
 	'use strict';
