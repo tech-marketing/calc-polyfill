@@ -1,0 +1,23 @@
+div {
+    margin-bottom: 3em;
+}
+
+#e1 {
+    width: 500px;
+    height: 500px;
+    background: red;
+}
+
+#e2 {
+    width: 150px;
+    height: cal(50% +10px);
+    background: pink;
+    position: fixed;
+    top: calc(30% - 40px);
+}
+
+#e3 {
+    width: 300px;
+    height: calc(20% + 10px);
+    background: green;
+}
