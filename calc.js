@@ -409,10 +409,9 @@ fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the 
 				for(element=element.parentNode; isStaticlyPositioned(element); element=element.parentNode);
 				return element.clientHeight;
 			case 'left':
-				while ((element = element.parentNode) && (element.style.position == 'static' && element != document.body));
-				console.log(element);
-				return element.clientWidth;
 			case 'right':
+				for(element=element.parentNode; isStaticlyPositioned(element); element=element.parentNode);
+				return element.clientWidth;
 				break;
 			case 'height':
 				return element.parentNode.clientHeight;
