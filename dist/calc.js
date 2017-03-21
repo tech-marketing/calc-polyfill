@@ -13,7 +13,6 @@ fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the 
  * Version: 1.4
  */
 
-
 (function (win, doc) {
 
 	'use strict';
@@ -212,7 +211,6 @@ fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the 
 
 
 	getStyleSheets = function () {
-
 		var stylesheets = [];
 		var index = 0;
 		var len = doc.styleSheets.length;
@@ -407,13 +405,11 @@ fillcalc v0.1.0 - (c) Robert Weber, freely distributable under the terms of the 
 			case 'top':
 			case 'bottom':
 				for(element=element.parentNode; isStaticlyPositioned(element); element=element.parentNode);
-				return element.clientHeight;
+				return element == document.body ? window.innerHeight : element.clientHeight;
 			case 'left':
-				while ((element = element.parentNode) && (element.style.position == 'static' && element != document.body));
-				console.log(element);
-				return element.clientWidth;
 			case 'right':
-				break;
+				for(element=element.parentNode; isStaticlyPositioned(element); element=element.parentNode);
+				return element.clientWidth;
 			case 'height':
 				return element.parentNode.clientHeight;
 			default:
